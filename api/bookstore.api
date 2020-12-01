@@ -1,0 +1,36 @@
+info(
+	title: "bookstore"
+	desc: "bookstore desc"
+	author: "tony"
+	email: "tony.zhao@tal.com"
+)
+
+type (
+	addReq struct {
+		book string `form:"book"`
+		price int64 `form:"price"`
+	}
+	
+	addResp struct {
+		ok bool `json:"ok"`
+	}
+)
+
+type (
+	checkReq struct {
+		book string `form:"book"`
+	}
+	
+	checkResp struct {
+		found bool `json:"found"`
+		price int64 `json:"price"`
+	}
+)
+
+service bookstore-api {
+	@handler AddHandler
+	post /add(addReq) returns(addResp)
+	
+	@handler CheckHandler
+	get /check(checkReq) returns(checkResp)
+}
